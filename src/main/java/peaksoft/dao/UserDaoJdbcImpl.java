@@ -20,7 +20,7 @@ public class UserDaoJdbcImpl implements UserDao {
     public void createUsersTable() throws SQLException {
         try (Connection conn = Util.connect();
              Statement statement = conn.createStatement()) {
-            String SQL = "CREATE TABLE users(" +
+            String SQL = "CREATE TABLE if not exists users(" +
                     "id SERIAL  PRIMARY KEY NOT NULL ," +
                     "firstname VARCHAR(20)," +
                     "lastname VARCHAR(20)," +
@@ -77,7 +77,6 @@ public class UserDaoJdbcImpl implements UserDao {
 
         ArrayList<User> list = new ArrayList<>();
         String SQL = "select * from users";
-
         try (Connection connect = connect();
              Statement statement = connect.createStatement()) {
             ResultSet resultSet = statement.executeQuery(SQL);
